@@ -1,3 +1,8 @@
+local is_qj, is_km
+if chinesejfm then
+  is_qj = chinesejfm.mode=='qj'
+  is_km = chinesejfm.mode=='km'
+end
 local function aux_a(w, p)
   return is_qj and { w, 0, w, priority=(p and p)}
     or { 0, w, 0, priority=(p and -p)}

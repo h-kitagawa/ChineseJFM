@@ -1,4 +1,5 @@
-my = {}
+local my={}
+chinesejfm={}
 luatexja={jfont={define_jfm=function(t) my[jfm_name]=t end}}
 local function load_jfm(name, dir)
   jfm_name = name; dofile((dir and (dir..'/')  or '') .. 'jfm-' .. name ..'.lua')
@@ -31,19 +32,18 @@ function my.compare_table(a,b)
 end
 end
 
+local function jfm_check_xj(sig, mode)
+  chinesejfm.mode=mode; load_jfm('xj'..sig)
+  print('* compare ' .. mode.. sig .. ' and xj' .. sig .. '(mode: ' .. mode .. ')')
+  my.compare_table(my[mode..sig], my['xj'..sig])
+end
 local function jfm_check(sig)
-  load_jfm('bj'..sig, 'original')
-  load_jfm('qj'..sig, 'original')
-  load_jfm('km'..sig, 'original')
-  is_qj=false; is_km=false; load_jfm('xj'..sig)
-  print('*checking bj' .. sig .. ' and xj' .. sig)
-  my.compare_table(my['bj'..sig], my['xj'..sig])
-  is_qj=true; is_km=false; load_jfm('xj'..sig)
-  print('*checking qj' .. sig .. ' and xj' .. sig)
-  my.compare_table(my['qj'..sig], my['xj'..sig])
-  is_qj=false; is_km=true; load_jfm('xj'..sig)
-  print('*checking km' .. sig .. ' and xj' .. sig)
-  my.compare_table(my['km'..sig], my['xj'..sig])
+  load_jfm('bj'..sig, 'original'); jfm_check_xj(sig, 'bj');
+  load_jfm('qj'..sig, 'original'); jfm_check_xj(sig, 'qj');
+  load_jfm('km'..sig, 'original'); jfm_check_xj(sig, 'km');
 end
 jfm_check('sh')
 jfm_check('sv')
+
+jfm_check('th')
+jfm_check('tv')

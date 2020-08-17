@@ -12,6 +12,10 @@ local function aux_b(w, p)
     or aux_a(w, p)
 end
 
+local function aux_c(w, p)
+  return is_km and {0.25, 0.25, 0.25, priority=1} or aux_a(w, p)
+end
+
 luatexja.jfont.define_jfm {
     version = 3,
     dir = 'tate',
@@ -27,7 +31,9 @@ luatexja.jfont.define_jfm {
         italic = 0,
         glue = {
             [1] = aux_a(0.5, 1),
-            [3] = aux_a(0.25, 1)
+            [201] = aux_a(0.25),
+            [3] = aux_a(0.25, 1),
+            [4] = aux_b(0.25, -1)
         }
     },
     [1] = {
@@ -57,7 +63,9 @@ luatexja.jfont.define_jfm {
         depth = 0.5,
         italic = 0,
         glue = {
-            [3] = aux_a(0.25, 1)
+            [201] = aux_a(0.25),
+            [3] = aux_a(0.25, 1),
+            [4] = aux_b(0.25, -1)
         }
     },
     [2] = {
@@ -90,16 +98,18 @@ luatexja.jfont.define_jfm {
         glue = {
             [0] = aux_a(0.5, 1),
             [1] = aux_a(0.5, 1),
-            [3] = aux_a(0.5, 1),
-            [5] = aux_a(0.5, 1),
-            [501] = aux_a(0.5, 1),
-            [502] = aux_a(0.5, 1)
+            [201] = aux_a(0.25),
+            [3] = aux_a(0.25, 1),
+            [4] = aux_b(0.25, -1),
+            [5] = aux_a(0.25, 1),
+            [501] = aux_a(0.25, 1),
+            [502] = aux_a(0.25, 1)
         }
     },
     [201] = {
         -- 逗号、顿号
         chars = {'、', '，'},
-        align = 'left',
+        align = 'middle',
         left = 0,
         down = 0,
         width = 0.5,
@@ -107,18 +117,23 @@ luatexja.jfont.define_jfm {
         depth = 0.5,
         italic = 0,
         glue = {
-            [0] = aux_a(0.5),
-            [1] = aux_a(0.5),
-            [3] = aux_a(0.5),
-            [5] = aux_a(0.5),
-            [501] = aux_a(0.5),
-            [502] = aux_a(0.5)
+            [0] = aux_a(0.25),
+            [1] = aux_a(0.25),
+            [2] = aux_a(0.25),
+            [201] = aux_a(0.5),
+            [202] = aux_a(0.25),
+            [3] = aux_a(0.5, 1),
+            [4] = aux_c(0.5, -1),
+            [401] = aux_a(0.25),
+            [5] = aux_a(0.25),
+            [501] = aux_a(0.25),
+            [502] = aux_a(0.25)
         }
     },
     [202] = {
         -- 冒号、分号
         chars = {'：', '；'},
-        align = 'left',
+        align = 'middle',
         left = 0,
         down = 0,
         width = 1,
@@ -126,7 +141,10 @@ luatexja.jfont.define_jfm {
         depth = 0.5,
         italic = 0,
         glue = {
-            [3] = {0.25, 0.0, 0.25, priority = is_qj and 1 or -1}
+            [3] = aux_a(0.25, 1),
+            [4] = aux_b(0.25, -1),
+            [201] = (is_qj or is_km)  and aux_a(0.25) or nil,
+            [202] = is_km and aux_a(0.25) or nil
         }
     },
     [3] = {
@@ -141,20 +159,22 @@ luatexja.jfont.define_jfm {
         italic = 0,
         glue = {
             [0] = aux_a(0.25, 1),
-            [1] = aux_a(0.5, 1),
+            [1] = aux_a(0.25, 1),
             [2] = aux_a(0.25, 1),
-            [201] = aux_a(0.25, 1),
-            [202] = aux_a(0.25, 1),
+            [201] = aux_a(0.5),
+            [202] = aux_a(0.25),
             [3] = aux_a(0.5, 1),
-            [4] = aux_a(0.25, 1),
-            [401] = aux_a(0.25, 1),
-            [5] = aux_a(0.25, 1)
+            [4] = aux_c(0.5, -1),
+            [401] = aux_a(0.25),
+            [5] = aux_a(0.25),
+            [501] = aux_a(0.25),
+            [502] = aux_a(0.25)
         }
     },
     [4] = {
         -- 句号
         chars = {'。', '．'},
-        align = 'left',
+        align = 'middle',
         left = 0,
         down = 0,
         width = 0.5,
@@ -162,18 +182,23 @@ luatexja.jfont.define_jfm {
         depth = 0.5,
         italic = 0,
         glue = {
-            [0] = aux_b(0.5, -1),
-            [1] = aux_b(0.5, -1),
-            [3] = aux_b(0.5, -1),
-            [5] = aux_b(0.5, -1),
-            [501] = aux_b(0.5, -1),
-            [502] = aux_b(0.5, -1)
+            [0] = aux_b(0.25, -1),
+            [1] = aux_b(0.25, -1),
+            [2] = aux_b(0.25, -1),
+            [201] = aux_c(0.5, -1),
+            [202] = aux_b(0.25, -1),
+            [3] = aux_c(0.5, -1),
+            [4] = aux_c(0.5, -1),
+            [401] = aux_b(0.25, -1),
+            [5] = aux_b(0.25, -1),
+            [501] = aux_b(0.25, -1),
+            [502] = aux_b(0.25, -1)
         }
     },
     [401] = {
         -- 问号、感叹号
         chars = {'？', '！', '‼', '⁇', '⁈', '⁉'},
-        align = 'left',
+        align = 'middle',
         left = 0,
         down = 0,
         width = 1,
@@ -181,7 +206,9 @@ luatexja.jfont.define_jfm {
         depth = 0.5,
         italic = 0,
         glue = {
-            [3] = {0.25, 0, 0.25, priority = is_qj and 1 or -1}
+            [201] = aux_a(0.25),
+            [3] = aux_a(0.25, 1),
+            [4] = aux_b(0.25, -1)
         }
     },
     [5] = {
@@ -203,7 +230,9 @@ luatexja.jfont.define_jfm {
         italic = 0,
         glue = {
             [1] = aux_a(0.5, 1),
-            [3] = aux_a(0.25, 1)
+            [201] = aux_a(0.25),
+            [3] = aux_a(0.25, 1),
+            [4] = aux_b(0.25, -1)
         },
         kern = {
             [5] = 0,
@@ -223,7 +252,9 @@ luatexja.jfont.define_jfm {
         italic = 0,
         glue = {
             [1] = aux_a(0.5, 1),
-            [3] = aux_a(0.25, 1)
+            [201] = aux_a(0.25),
+            [3] = aux_a(0.25, 1),
+            [4] = aux_b(0.25, -1)
         },
         kern = {
             [5] = 0,
@@ -243,7 +274,9 @@ luatexja.jfont.define_jfm {
         italic = 0,
         glue = {
             [1] = aux_a(0.5, 1),
-            [3] = aux_a(0.25, 1)
+            [201] = aux_a(0.25),
+            [3] = aux_a(0.25, 1),
+            [4] = aux_b(0.25, -1)
         },
         kern = {
             [5] = 0,
