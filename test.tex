@@ -1,0 +1,35 @@
+%#! luatex
+\input luatexja.sty
+\input lua-visual-debug.sty
+\jfont \jSK="name:Source Han Serif SC:jfm=xjsh/kaiming" at 10pt
+\jfont \jSQ="name:Source Han Serif SC:jfm=xjsh/quanjiao" at 10pt
+\jfont \jSB="name:Source Han Serif SC:jfm=xjsh" at 10pt
+
+\jfont \jTK="name:Source Han Serif TC:jfm=xjth/kaiming" at 10pt
+\jfont \jTQ="name:Source Han Serif TC:jfm=xjth/quanjiao" at 10pt
+\jfont \jTB="name:Source Han Serif TC:jfm=xjth" at 10pt
+
+\parindent=10pt
+\hsize=250pt
+
+% text: modified from CLREQ
+\def\testS#1{\par\noindent{\tentt\string#1}\par{#1\rightskip0pt plus 1fil
+  一个简体字可能对应多？个繁体字，如简体字「发」，其相应的！〈繁体字可能为「發」或「髮」；
+  一个繁体汉字对应多个简体・〜〉汉字的情。，况与前者相比数量极少但仍需注意，如繁体字「乾」可能对应简体字「干」或「乾」。
+  繁简汉字的对应关系具体应由上下文决定。\par}\medskip}
+
+\def\testT#1{\par\noindent{\tentt\string#1}\par{#1\rightskip0pt plus 1fil
+  一個簡體字可能對應多？個繁體字，如簡體字「发」，其相應的！〈繁體字可能為「發」或「髮」；
+  一個繁體漢字對應多個簡體・〜〉漢字的情。，況與前者相比數量極少但仍需注意，如繁體字「乾」可能對應簡體字「干」或「乾」。
+  繁簡漢字的對應關係具體應由上下文決定。\par}\medskip}
+
+
+
+\testS\jSK
+\testS\jSQ
+\testS\jSB
+
+\testT\jTK
+\testT\jTQ
+\testT\jTB
+\bye

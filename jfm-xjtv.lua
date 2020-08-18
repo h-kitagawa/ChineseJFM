@@ -1,7 +1,8 @@
 local is_qj, is_km
-if chinesejfm then
-  is_qj = chinesejfm.mode=='qj'
-  is_km = chinesejfm.mode=='km'
+if luatexja.jfont.jfm_feature then
+  is_qj = luatexja.jfont.jfm_feature.quanjiao
+  is_km = luatexja.jfont.jfm_feature.kaiming
+  if is_qj and is_km then is_qj,is_km = false, false end
 end
 local function aux_a(w, p)
   return is_qj and { w, 0, w, priority=(p and p)}

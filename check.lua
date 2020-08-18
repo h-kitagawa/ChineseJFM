@@ -1,6 +1,6 @@
 local my={}
 chinesejfm={}
-luatexja={jfont={define_jfm=function(t) my[jfm_name]=t end}}
+luatexja={jfont={define_jfm=function(t) my[jfm_name]=t end, jfm_feature={}}}
 local function load_jfm(name, dir)
   jfm_name = name; dofile((dir and (dir..'/')  or '') .. 'jfm-' .. name ..'.lua')
 end
@@ -33,7 +33,9 @@ end
 end
 
 local function jfm_check_xj(sig, mode)
-  chinesejfm.mode=mode; load_jfm('xj'..sig)
+  luatexja.jfont.jfm_feature.quanjiao = mode=='qj'
+  luatexja.jfont.jfm_feature.kaiming  = mode=='km'
+  load_jfm('xj'..sig)
   print('* compare ' .. mode.. sig .. ' and xj' .. sig .. '(mode: ' .. mode .. ')')
   my.compare_table(my[mode..sig], my['xj'..sig])
 end
