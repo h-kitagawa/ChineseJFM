@@ -127,7 +127,7 @@ luatexja.jfont.define_jfm {
         depth = 0.5,
         italic = 0,
         glue = {
-            [3] = {0.25, 0.0, 0.25, priority = is_qj and 1 or -1}
+            [3] = aux_a(0.25, 1),
         }
     },
     [3] = {
@@ -182,7 +182,7 @@ luatexja.jfont.define_jfm {
         depth = 0.5,
         italic = 0,
         glue = {
-            [3] = {0.25, 0, 0.25, priority = is_qj and 1 or -1}
+            [3] = aux_a(0.25, 1),
         }
     },
     [5] = {
